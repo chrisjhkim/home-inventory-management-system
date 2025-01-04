@@ -21,7 +21,7 @@ Home Inventory Management System is a web-based application designed to help use
 
 ## Technology Stack
 - Backend
-  - Spring Boot 3.2
+  - Spring Boot 3.4
   - Spring Data JPA
   - QueryDSL
   - PostgreSQL 15
@@ -41,23 +41,7 @@ Home Inventory Management System is a web-based application designed to help use
 - Gradle 8.x
 
 ## Project Structure
-```
-src
-├── main
-│   ├── java/com/inventory
-│   │   ├── config
-│   │   ├── controller
-│   │   ├── dto
-│   │   ├── entity
-│   │   ├── repository
-│   │   ├── service
-│   │   └── util
-│   └── resources
-│       ├── static
-│       ├── templates
-│       └── application.yml
-└── test
-```
+
 
 ## API Documentation
 The API documentation is available through Swagger UI:
