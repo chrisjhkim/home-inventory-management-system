@@ -35,10 +35,6 @@ Home Inventory Management System is a web-based application designed to help use
   - JUnit 5
   - Mockito
 
-## Prerequisites
-- JDK 17 or later
-- PostgreSQL 15
-- Gradle 8.x
 
 ## Project Structure
 
