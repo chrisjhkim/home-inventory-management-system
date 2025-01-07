@@ -34,6 +34,8 @@ Home Inventory Management System is a web-based application designed to help use
 - Testing
   - JUnit 5
   - Mockito
+- Devops
+  - docker
 
 
 ## Project Structure
