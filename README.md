@@ -19,6 +19,13 @@ Home Inventory Management System is a web-based application designed to help use
   - Notifications for items approaching expiration
   - Category-based expiration statistics
 
+## Getting Started
+### Prerequisites
+- JDK 17 or higher
+- PostgreSQL 15
+- Docker (optional)
+
+
 ## Technology Stack
 - Backend
   - Spring Boot 3.4
