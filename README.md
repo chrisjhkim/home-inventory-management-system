@@ -53,7 +53,3 @@ The API documentation is available through Swagger UI:
 `http://localhost:8080/swagger-ui.html`
 
 ## Changelog
-### [1.0.0] - 2025-01-04
-- Initial release
-- Basic inventory management functionality
-- User authentication system implemented
