@@ -35,3 +35,13 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Mac OS ###
+.DS_Store
+
+### Windows ###
+Thumbs.db
+
+### QueryDSL ###
+# do not ignore querydsl generated classes
+#/src/main/generated/
