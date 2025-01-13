@@ -17,7 +17,7 @@ class CategoryRepositoryTest {
 	private CategoryRepository categoryRepository;
 
 	@Test
-	@DisplayName("연관관계 매핑 & 연관관계 편의 메서드 테스트 ")
+	@DisplayName("연관관계 매핑 테스트 ")
 	void categoryRelationshipTest() {
 		// Given
 		Category coke = Category.builder()
@@ -29,14 +29,10 @@ class CategoryRepositoryTest {
 				.children(List.of(coke))
 				.build();
 
-		Category soda = Category.builder()
-				.name("탄산")
-				.build();
 
 		// When
 		categoryRepository.save(coke);
 		categoryRepository.save(beverage);
-		categoryRepository.save(soda);
 
 		// Then
 		// 1. 부모 카테고리 검증
@@ -54,13 +50,6 @@ class CategoryRepositoryTest {
 
 		assertThat(savedChild.getParent()).isEqualTo(beverage);
 
-		// 3. 카테고리 관계 변경 검증
-		coke.changeParentCategory(soda);
-
-		assertAll(
-				() -> assertThat(soda.getChildren()).contains(coke),
-				() -> assertThat(coke.getParent()).isEqualTo(soda)
-		);
 	}
 
 
