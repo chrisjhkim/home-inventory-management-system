@@ -9,7 +9,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-public class CategoryTest {
+public class TagTest {
 
 	@Nested
 	@DisplayName("연관관계 편의 메서드 테스트 ")
@@ -17,19 +17,19 @@ public class CategoryTest {
 
 
 		@Test
-		@DisplayName("부모 Category 변경")
-		void test_changeParentCategory() {
+		@DisplayName("부모 Tag 변경")
+		void test_changeParentTag() {
 			// Given
-			Category child = Category.builder()
+			Tag child = Tag.builder()
 					.name("coke")
 					.build();
 
-			Category originalParent = Category.builder()
+			Tag originalParent = Tag.builder()
 					.name("beverage")
 					.children(List.of(child))
 					.build();
 
-			Category changedParent = Category.builder()
+			Tag changedParent = Tag.builder()
 					.name("탄산")
 					.build();
 
@@ -43,18 +43,18 @@ public class CategoryTest {
 			);
 
 			// When
-			child.changeParentCategory(changedParent);
+			child.changeParentTag(changedParent);
 
 			// Then
 			assertAll(
 					()-> assertThat(child.getParent())
-							.as("부모 Category 변경되어야 함")
+							.as("부모 Tag 변경되어야 함")
 							.isEqualTo(changedParent),
 					()-> assertThat(originalParent.getChildren())
-							.as("기존 부모 Category 의 자식 Category 가 없어져야 함")
+							.as("기존 부모 Tag 의 자식 Tag 가 없어져야 함")
 							.doesNotContain(child),
 					()-> assertThat(changedParent.getChildren())
-							.as("신규 부모 Category 의 자식 Category 에 추가 되어야 함")
+							.as("신규 부모 Tag 의 자식 Tag 에 추가 되어야 함")
 							.contains(child)
 			);
 
@@ -62,14 +62,14 @@ public class CategoryTest {
 		}
 
 		@Test
-		@DisplayName("부모 Category null 로 변경")
-		void test_changeParentCategory_to_null() {
+		@DisplayName("부모 Tag null 로 변경")
+		void test_changeParentTag_to_null() {
 			// Given
-			Category child = Category.builder()
+			Tag child = Tag.builder()
 					.name("coke")
 					.build();
 
-			Category parent = Category.builder()
+			Tag parent = Tag.builder()
 					.name("beverage")
 					.children(List.of(child))
 					.build();
@@ -85,15 +85,15 @@ public class CategoryTest {
 
 
 			// When
-			child.changeParentCategory(null);
+			child.changeParentTag(null);
 
 			// Then
 			assertAll(
 					()-> assertThat(child.getParent())
-							.as("부모 Category 없어져야 함")
+							.as("부모 Tag 없어져야 함")
 							.isNull(),
 					()-> assertThat(parent.getChildren())
-							.as("자식 Category 없어져야 함")
+							.as("자식 Tag 없어져야 함")
 							.isEmpty()
 			);
 

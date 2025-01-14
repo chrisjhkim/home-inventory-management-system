@@ -15,7 +15,7 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 @Entity
 @Getter
-public class Category extends BaseTimeEntity{
+public class Tag extends BaseTimeEntity{
 	// == Columns == //
 	@Id
 	@GeneratedValue
@@ -24,25 +24,25 @@ public class Category extends BaseTimeEntity{
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_id")
-	private Category parent;
+	private Tag parent;
 
-	@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@Builder.Default
-	private List<Category> children = new ArrayList<>();
+	private List<Tag> children = new ArrayList<>();
 
 	// == 생성자 == //
 	@SuppressWarnings("unused") // Lombok 에서 쓰임
-	Category(Long id, String name, Category parent, List<Category> children) {
+	Tag(Long id, String name, Tag parent, List<Tag> children) {
 		this.id = id;
 		this.name = name;
 		this.children = new ArrayList<>();
 
 		if ( parent != null ) {
-			this.changeParentCategory(parent);
+			this.changeParentTag(parent);
 		}
 
 		if ( children != null ) {
-			children.forEach(child -> child.changeParentCategory(this));
+			children.forEach(child -> child.changeParentTag(this));
 		}
 	}
 
@@ -54,7 +54,7 @@ public class Category extends BaseTimeEntity{
 	// == Overrides == //
 	@Override
 	public String toString() {
-		return "Category{" +
+		return "Tag{" +
 				"id=" + id +
 				", name='" + name + '\'' +
 				(parent != null ? ", parent.name="+parent.name : "") +
@@ -67,14 +67,14 @@ public class Category extends BaseTimeEntity{
 
 
 	// == 비즈니스 로직 == //
-	public void changeParentCategory(Category parentCategory){
+	public void changeParentTag(Tag parentTag){
 		if ( this.parent != null ) {
 			this.parent.getChildren().remove(this);
 		}
 
-		this.parent = parentCategory;
-		if ( parentCategory != null ) {
-			parentCategory.getChildren().add(this);
+		this.parent = parentTag;
+		if ( parentTag != null ) {
+			parentTag.getChildren().add(this);
 		}
 	}
 }

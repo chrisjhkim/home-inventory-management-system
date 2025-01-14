@@ -17,12 +17,12 @@ Home Inventory Management System is a web-based application designed to help use
     - Automatic addition of regularly purchased items
 - Expiration Date Tracking
     - Notifications for items approaching expiration
-    - Category-based expiration statistics
+    - Tag-based expiration statistics
 
 ## Getting Started
 ### Prerequisites
 - JDK 17 or higher
-- PostgresSQL 15
+- PostgreSQL 15
 - Docker (optional)
 
 
@@ -31,7 +31,7 @@ Home Inventory Management System is a web-based application designed to help use
     - Spring Boot 3.4
     - Spring Data JPA
     - QueryDSL
-    - PostgresSQL 15
+    - PostgreSQL 15
 - Frontend
     - Thymeleaf
     - Bootstrap 5
@@ -61,7 +61,7 @@ Home Inventory Management System is a web-based application designed to help use
 | created_at | timestamp    | NOT NULL         |
 | updated_at | timestamp    | NOT NULL         |
 
-### Categories
+### Tags
 | Column      | Type        | Constraints |
 |-------------|-------------|-------------|
 | id          | bigint      | PRIMARY KEY |
@@ -71,16 +71,16 @@ Home Inventory Management System is a web-based application designed to help use
 | updated_at  | timestamp   | NOT NULL    |
 
 ### Items
-| Column           | Type         | Constraints                 |
-|------------------|--------------|-----------------------------|
-| id               | bigint       | PRIMARY KEY                 |
-| category_id      | bigint       | FOREIGN KEY (categories.id) |
-| name             | varchar(255) | NOT NULL                    |
-| barcode          | varchar(100) | UNIQUE                      |
-| description      | text         |                             |
-| minimum_quantity | int          | DEFAULT 0                   |
-| created_at       | timestamp    | NOT NULL                    |
-| updated_at       | timestamp    | NOT NULL                    |
+| Column           | Type         | Constraints           |
+|------------------|--------------|-----------------------|
+| id               | bigint       | PRIMARY KEY           |
+| tag_id      | bigint       | FOREIGN KEY (tags.id) |
+| name             | varchar(255) | NOT NULL              |
+| barcode          | varchar(100) | UNIQUE                |
+| description      | text         |                       |
+| minimum_quantity | int          | DEFAULT 0             |
+| created_at       | timestamp    | NOT NULL              |
+| updated_at       | timestamp    | NOT NULL              |
 
 ### Places
 | Column      | Type         | Constraints |

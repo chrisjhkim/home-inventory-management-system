@@ -1,6 +1,6 @@
 package com.chrisjhkim.home.repository;
 
-import com.chrisjhkim.home.entity.Category;
+import com.chrisjhkim.home.entity.Tag;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -13,9 +13,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 @DataJpaTest
-class CategoryRepositoryTest {
+class TagRepositoryTest {
 	@Autowired
-	private CategoryRepository categoryRepository;
+	private TagRepository tagRepository;
 
 
 	@Nested
@@ -27,35 +27,35 @@ class CategoryRepositoryTest {
 		void test_save(){
 			// Test # Given
 
-			Category category = Category.builder()
+			Tag tag = Tag.builder()
 					.name("test-name")
 					.build();
-			System.out.println("category = " + category);
+			System.out.println("tag = " + tag);
 			assertAll(
-					()-> assertThat(category.getId())
+					()-> assertThat(tag.getId())
 							.as("저장전에 빈값 맞는지 추가 확인")
 							.isNull(),
-					()-> assertThat(category.getCreatedAt())
+					()-> assertThat(tag.getCreatedAt())
 							.as("저장전에 빈값 맞는지 추가 확인")
 							.isNull(),
-					()-> assertThat(category.getUpdatedAt())
+					()-> assertThat(tag.getUpdatedAt())
 							.as("저장전에 빈값 맞는지 추가 확인")
 							.isNull()
 			);
 
 
 			// Test # When
-			categoryRepository.save(category);
+			tagRepository.save(tag);
 
 			// Test # Then
 			assertAll(
-					()-> assertThat(category.getId())
+					()-> assertThat(tag.getId())
 							.as("저장 후에 id 값 자동 생성되어야 한다.")
 							.isNotNull(),
-					()-> assertThat(category.getCreatedAt())
+					()-> assertThat(tag.getCreatedAt())
 							.as("저장 후에 createdAt 자동 생성되어야 한다.")
 							.isNotNull(),
-					()-> assertThat(category.getUpdatedAt())
+					()-> assertThat(tag.getUpdatedAt())
 							.as("저장 후에 updatedAt 자동 생성되어야 한다.")
 							.isNotNull()
 			);
@@ -63,26 +63,26 @@ class CategoryRepositoryTest {
 		}
 		@Test
 		@DisplayName("연관관계 매핑 테스트 ")
-		void test_categoryRelationship() {
+		void test_tagRelationship() {
 			// Given
-			Category coke = Category.builder()
+			Tag coke = Tag.builder()
 					.name("coke")
 					.build();
 
-			Category beverage = Category.builder()
+			Tag beverage = Tag.builder()
 					.name("beverage")
 					.children(List.of(coke))
 					.build();
 
 
 			// When
-			categoryRepository.save(coke);
-			categoryRepository.save(beverage);
+			tagRepository.save(coke);
+			tagRepository.save(beverage);
 
 			// Then
 			// 1. 부모 카테고리 검증
-			Category savedParent = categoryRepository.findById(beverage.getId())
-					.orElseThrow(() -> new AssertionError("Parent category not found"));
+			Tag savedParent = tagRepository.findById(beverage.getId())
+					.orElseThrow(() -> new AssertionError("Parent tag not found"));
 
 			assertAll(
 					() -> assertThat(savedParent.getName()).isEqualTo(beverage.getName()),
@@ -90,8 +90,8 @@ class CategoryRepositoryTest {
 			);
 
 			// 2. 자식 카테고리 검증
-			Category savedChild = categoryRepository.findById(coke.getId())
-					.orElseThrow(() -> new AssertionError("Child category not found"));
+			Tag savedChild = tagRepository.findById(coke.getId())
+					.orElseThrow(() -> new AssertionError("Child tag not found"));
 
 			assertThat(savedChild.getParent()).isEqualTo(beverage);
 

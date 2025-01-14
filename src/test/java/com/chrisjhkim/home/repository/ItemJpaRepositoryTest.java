@@ -38,8 +38,7 @@ class ItemJpaRepositoryTest {
 			assertThat(item.getId()).isNotNull();
 
 			System.out.println("item = " + item);
-			System.out.println("item.getMemo() = " + item.getMemo());
-			System.out.println("item.getMemo() = " + item.getMemo());
+			System.out.println("item.getDescription() = " + item.getDescription());
 			System.out.println("item.getCreatedAt() = " + item.getCreatedAt());
 			System.out.println("item.getUpdatedAt() = " + item.getUpdatedAt());
 		}
@@ -49,7 +48,7 @@ class ItemJpaRepositoryTest {
 			// Test # Given
 			Item item = Item.builder()
 					.name("testName")
-					.memo("testMemo")
+					.description("testDescription")
 					.build();
 			assertThat(item.getId()).isNull();
 			jpaRepository.save(item);
@@ -61,7 +60,7 @@ class ItemJpaRepositoryTest {
 			assertThat(result).contains(item);
 			assertAll(
 					()-> assertThat(item.getName()).isEqualTo("testName"),
-					()-> assertThat(item.getMemo()).isEqualTo("testMemo")
+					()-> assertThat(item.getDescription()).isEqualTo("testDescription")
 			);
 
 
