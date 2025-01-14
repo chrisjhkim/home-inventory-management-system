@@ -15,7 +15,7 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 @Entity
 @Getter
-public class Category {
+public class Category extends BaseTimeEntity{
 	// == Columns == //
 	@Id
 	@GeneratedValue
@@ -59,8 +59,11 @@ public class Category {
 				", name='" + name + '\'' +
 				(parent != null ? ", parent.name="+parent.name : "") +
 				", children=" + children +
+				", createdAt=" + getCreatedAt() +
+				", updatedAt=" + getUpdatedAt() +
 				'}';
 	}
+
 
 
 	// == 비즈니스 로직 == //
