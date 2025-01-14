@@ -11,7 +11,7 @@ import java.util.List;
 
 import static lombok.AccessLevel.PROTECTED;
 
-@Builder
+
 @NoArgsConstructor(access = PROTECTED)
 @Entity
 @Getter
@@ -27,15 +27,19 @@ public class Tag extends BaseTimeEntity{
 	private Tag parent;
 
 	@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@Builder.Default
 	private List<Tag> children = new ArrayList<>();
+
+	@OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
+	private List<ItemTag> itemTags = new ArrayList<>();
 
 	// == 생성자 == //
 	@SuppressWarnings("unused") // Lombok 에서 쓰임
-	Tag(Long id, String name, Tag parent, List<Tag> children) {
+	@Builder
+	Tag(Long id, String name, Tag parent, List<Tag> children, List<Item> items) {
 		this.id = id;
 		this.name = name;
 		this.children = new ArrayList<>();
+		this.itemTags = new ArrayList<>();
 
 		if ( parent != null ) {
 			this.changeParentTag(parent);
@@ -44,6 +48,13 @@ public class Tag extends BaseTimeEntity{
 		if ( children != null ) {
 			children.forEach(child -> child.changeParentTag(this));
 		}
+
+		if ( items != null ) {
+//			items.forEach(item -> item.addTag(this));
+			// TODO ?
+		}
+
+
 	}
 
 	// == static 생성자 == //
