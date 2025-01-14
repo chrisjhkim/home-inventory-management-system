@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.chrisjhkim'
-version = '0.0.1-SNAPSHOT'
+version = '25.1.1-SNAPSHOT'
 
 java {
 	toolchain {
@@ -24,16 +24,25 @@ repositories {
 }
 
 dependencies {
+	// Spring Boot Starters
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// Lombok
 	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'com.h2database:h2'
-	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	// Database
+	runtimeOnly 'org.postgresql:postgresql'       // PostgreSQL (운영용)
+
+	// Development Tools
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// Test Dependencies
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testRuntimeOnly 'com.h2database:h2'          // H2 Database (테스트용)
 }
 
 tasks.withType(Test).configureEach {
